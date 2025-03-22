@@ -1,21 +1,31 @@
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
+import "./App.css";
 
-function App() {
-  const [message, setMessage] = useState("Loading...");
+// Import your reusable components
+import Header from "./components/Header";
+import DataFilter from "./components/DataFilter";
+import DataTable from "./components/DataTable";
 
-  useEffect(() => {
-    fetch("http://127.0.0.1:5000/api/weather")
-      .then((res) => res.json())
-      .then((data) => setMessage(data.message))
-      .catch((err) => console.error("Error fetching data:", err));
-  }, []);
+const App = () => {
+  const [data, setData] = useState([]);
+
+  const handleFilter = async (year, day) => {
+    const response = await fetch(
+      `http://127.0.0.1:5000/api/data?year=${year}&day=${day}`
+    );
+    const filteredData = await response.json();
+    setData(filteredData);
+  };
 
   return (
-    <div>
-      <h1>Solar Weather Station</h1>
-      <p>API Response: {message}</p>
+    <div className="App">
+      <Header />
+      <div className="content">
+        <DataFilter onFilter={handleFilter} />
+        <DataTable data={data} />
+      </div>
     </div>
   );
-}
+};
 
 export default App;
