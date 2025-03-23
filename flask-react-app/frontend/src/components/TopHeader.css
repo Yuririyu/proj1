@@ -1,0 +1,50 @@
+.top-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #cb4900; /* Vibrant reddish-orange background */
+  padding: 10px 20px;
+  color: white;
+  width: 100%; /* Full width */
+}
+
+.logo img {
+  height: 50px; /* Set the logo size */
+  width: auto; /* Maintain aspect ratio */
+}
+
+.header-text h1 {
+  font-size: 1.8rem; /* Adjust font size */
+  margin: 0;
+  color: white; /* Text color for the header */
+}
+
+.header-buttons {
+  display: flex;
+  gap: 10px; /* Space between buttons */
+}
+
+.datasets-button,
+.menu-button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.datasets-button {
+  background-color: #666; /* Light gray background */
+  color: white;
+}
+
+.menu-button {
+  background-color: white;
+  color: #cb4900;
+  border: 1px solid #cb4900;
+}
+
+.datasets-button:hover,
+.menu-button:hover {
+  opacity: 0.9; /* Hover effect */
+}
