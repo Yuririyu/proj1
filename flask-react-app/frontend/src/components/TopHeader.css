@@ -1,50 +1,54 @@
+/* Top Header */
 .top-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #cb4900; /* Vibrant reddish-orange background */
-  padding: 10px 20px;
-  color: white;
-  width: 100%; /* Full width */
+  background-color: #cb4900; /* Vibrant orange */
+  padding: 15px 30px;
+  color: #ffffff; /* White text for contrast */
+  border-bottom: 2px solid #b54300; /* Slightly darker orange for separation */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
 }
 
-.logo img {
-  height: 50px; /* Set the logo size */
-  width: auto; /* Maintain aspect ratio */
+/* Logo Styling */
+.header-logo img {
+  width: 100px; /* Adjust width for optimal size */
+  height: auto; /* Maintain aspect ratio */
+  display: block;
 }
 
+/* Header Text */
 .header-text h1 {
-  font-size: 1.8rem; /* Adjust font size */
+  font-family: "Red Hat Display", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #ffffff; /* White text for contrast */
   margin: 0;
-  color: white; /* Text color for the header */
 }
 
+/* Header Buttons */
 .header-buttons {
   display: flex;
-  gap: 10px; /* Space between buttons */
+  gap: 15px; /* Space between buttons */
 }
 
-.datasets-button,
-.menu-button {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
+.header-buttons button {
+  font-family: "Red Hat Display", sans-serif;
+  background-color: #ffffff; /* White background for buttons */
+  color: #cb4900; /* Orange text to match the header */
+  border: 1px solid #ffffff;
+  padding: 8px 16px;
+  border-radius: 20px; /* Fully rounded button edges */
   cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s ease-in-out;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.datasets-button {
-  background-color: #666; /* Light gray background */
-  color: white;
-}
-
-.menu-button {
-  background-color: white;
-  color: #cb4900;
-  border: 1px solid #cb4900;
-}
-
-.datasets-button:hover,
-.menu-button:hover {
-  opacity: 0.9; /* Hover effect */
+.header-buttons button:hover {
+  background-color: #f4f4f4; /* Light grey hover effect */
+  color: #cb4900; /* Keep orange text on hover */
+  transform: translateY(-2px); /* Subtle hover lift */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Slightly enhanced shadow */
 }

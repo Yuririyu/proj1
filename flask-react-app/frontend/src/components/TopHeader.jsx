@@ -3,23 +3,18 @@ import "./TopHeader.css";
 
 const TopHeader = () => {
   return (
-    <div className="top-header">
-      {/* Left Side: Logo */}
-      <div className="logo">
-        <img src="/utrgv logo.png" alt="UTRGV Logo" />
+    <header className="top-header">
+      <div className="header-logo">
+        <img src="/utrgv_logo.png" alt="UTRGV Logo" />
       </div>
-
-      {/* Center: University Text */}
       <div className="header-text">
-        <h1>The University of Texas Rio Grande Valley</h1>
+        <h1>The University Of Texas Rio Grande Valley</h1>
       </div>
-
-      {/* Right Side: Buttons */}
       <div className="header-buttons">
-        <button className="datasets-button">Datasets</button>
-        <button className="menu-button">Main Menu (Main Page)</button>
+        <button>Home</button>
+        <button>Data Sets</button>
       </div>
-    </div>
+    </header>
   );
 };
 
