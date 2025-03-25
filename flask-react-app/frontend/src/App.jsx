@@ -1,20 +1,20 @@
-import { useEffect, useState } from "react";
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import TopHeader from "./components/TopHeader";
+import MainPage from "./components/MainPage";
+import LiveConditions from "./components/LiveConditions";
 
 function App() {
-  const [message, setMessage] = useState("Loading...");
-
-  useEffect(() => {
-    fetch("http://127.0.0.1:5000/api/weather")
-      .then((res) => res.json())
-      .then((data) => setMessage(data.message))
-      .catch((err) => console.error("Error fetching data:", err));
-  }, []);
-
   return (
-    <div>
-      <h1>Solar Weather Station</h1>
-      <p>API Response: {message}</p>
-    </div>
+    <Router>
+      <div className="App">
+        <TopHeader />
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/live-conditions" element={<LiveConditions />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

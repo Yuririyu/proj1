@@ -1,0 +1,54 @@
+/* Top Header */
+.top-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #cb4900; /* Vibrant orange */
+  padding: 15px 30px;
+  color: #ffffff; /* White text for contrast */
+  border-bottom: 2px solid #b54300; /* Slightly darker orange for separation */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+/* Logo Styling */
+.header-logo img {
+  width: 100px; /* Adjust width for optimal size */
+  height: auto; /* Maintain aspect ratio */
+  display: block;
+}
+
+/* Header Text */
+.header-text h1 {
+  font-family: "Red Hat Display", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #ffffff; /* White text for contrast */
+  margin: 0;
+}
+
+/* Header Buttons */
+.header-buttons {
+  display: flex;
+  gap: 15px; /* Space between buttons */
+}
+
+.header-buttons button {
+  font-family: "Red Hat Display", sans-serif;
+  background-color: #ffffff; /* White background for buttons */
+  color: #cb4900; /* Orange text to match the header */
+  border: 1px solid #ffffff;
+  padding: 8px 16px;
+  border-radius: 20px; /* Fully rounded button edges */
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s ease-in-out;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header-buttons button:hover {
+  background-color: #f4f4f4; /* Light grey hover effect */
+  color: #cb4900; /* Keep orange text on hover */
+  transform: translateY(-2px); /* Subtle hover lift */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Slightly enhanced shadow */
+}
