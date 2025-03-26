@@ -1,0 +1,111 @@
+/* General Styling */
+.conditions-page {
+    font-family: "Red Hat Display", sans-serif;
+    color: #333;
+    background-color: #f8f9fc; /* Light grey background */
+    padding: 60px;
+    max-width: 1600px;
+    margin: 0 auto; /* Center content */
+  }
+  
+  /* Hero Section */
+  .conditions-hero {
+    text-align: center;
+    padding: 100px 40px;
+    background-color: white;
+    color: #0a4b74; /* Deep blue */
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin-bottom: 50px;
+  }
+  
+  .conditions-hero h1 {
+    font-size: 4rem; /* Large title for hero section */
+    font-weight: 700;
+  }
+  
+  .conditions-hero p {
+    font-size: 1.8rem; /* Increased paragraph size */
+    margin-top: 15px;
+  }
+  
+  /* Real-Time Data Section */
+  .conditions-stats {
+    margin-bottom: 50px;
+    padding: 40px;
+  }
+  
+  .conditions-stats h2 {
+    text-align: center;
+    font-size: 2.5rem; /* Larger heading */
+    color: #0a4b74; /* Deep blue */
+    margin-bottom: 30px;
+  }
+  
+  .stats-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px; /* More spacing between cards */
+    flex-wrap: wrap; /* Wrap cards on smaller screens */
+  }
+  
+  .stat-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    max-width: 300px;
+  }
+  
+  .stat-card h3 {
+    font-size: 1.8rem;
+    color: #cb4900; /* Vibrant orange */
+    margin-bottom: 15px;
+  }
+  
+  .stat-card p {
+    font-size: 1.2rem; /* Adjusted paragraph text */
+  }
+  
+  /* Visualizations Section */
+  .visual-section {
+    margin-bottom: 50px;
+    text-align: center;
+  }
+  
+  .visual-section h2 {
+    font-size: 2.5rem;
+    color: #0a4b74; /* Deep blue */
+  }
+  
+  .visual-section p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+  
+  .visual-container {
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+  }
+  
+  .visual-container img {
+    width: 100%;
+    max-width: 1200px; /* Restrict image size */
+    border-radius: 10px;
+  }
+  
+  /* Footer Section */
+  .conditions-footer {
+    text-align: center;
+    padding: 40px;
+    background-color: #333;
+    color: white;
+    font-size: 1.5rem; /* Increased footer size */
+  }
+  
