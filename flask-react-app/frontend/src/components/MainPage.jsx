@@ -32,13 +32,6 @@ const MainPage = () => {
       {/* Features Section */}
       <section className="features">
         <div className="feature-card">
-          <h2>📊 Live Graphs</h2>
-          <p>Explore real-time solar radiation data updated every 30 minutes.</p>
-          <Link to="/live-graphs">
-            <button className="feature-button">View Graphs</button>
-          </Link>
-        </div>
-        <div className="feature-card">
           <h2>📂 Downloadable Datasets</h2>
           <p>Access and download historical solar and weather datasets with ease.</p>
           <Link to="/datasets">
@@ -47,7 +40,7 @@ const MainPage = () => {
         </div>
         <div className="feature-card">
           <h2>🌦️ Meteorological Data</h2>
-          <p>Stay informed with detailed weather conditions and updates.</p>
+          <p>Stay informed with detailed weather conditions and live updates.</p>
           <Link to="/view-conditions">
             <button className="feature-button">View Conditions</button>
           </Link>
@@ -55,9 +48,8 @@ const MainPage = () => {
         <div className="feature-card">
           <h2>🔮 Weather Predictions</h2>
           <p>Get future weather forecasts powered by data and AI analysis.</p>
-          {/* Link to navigate to predictions page */}
           <Link to="/weather-predictions">
-            <button className="feature-button custom-predictions-button">Predict Weather</button>
+            <button className="feature-button">Predict Weather</button>
           </Link>
         </div>
       </section>

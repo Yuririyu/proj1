@@ -1,11 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainPage from "./components/MainPage";
-import LiveGraphs from "./components/LiveGraphs";
 import DatasetsPage from "./components/DatasetsPage";
 import ConditionsPage from "./components/ConditionsPage";
-import PredictionsPage from "./components/PredictionsPage"; // Import PredictionsPage
-import TopHeader from "./components/TopHeader"; // Import TopHeader
+import PredictionsPage from "./components/PredictionsPage"; // Keep Predictions if required
+import TopHeader from "./components/TopHeader";
 
 const App = () => {
   return (
@@ -14,10 +13,9 @@ const App = () => {
         <TopHeader />
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/live-graphs" element={<LiveGraphs />} />
           <Route path="/datasets" element={<DatasetsPage />} />
           <Route path="/view-conditions" element={<ConditionsPage />} />
-          <Route path="/weather-predictions" element={<PredictionsPage />} /> {/* New predictions route */}
+          <Route path="/weather-predictions" element={<PredictionsPage />} />
         </Routes>
       </div>
     </Router>
