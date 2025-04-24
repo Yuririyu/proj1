@@ -1,13 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import "./DatasetsPage.css";
 
 const DatasetsPage = () => {
+  const [instrument, setInstrument] = useState("");
+  const [secondary, setSecondary] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert(
+      `Generating data for ${instrument || "Primary Instrument"} and ${
+        secondary || "None"
+      }!`
+    );
+  };
+
   return (
     <div className="datasets-page">
       {/* Hero Section */}
       <section className="datasets-hero">
-        <h1>Download Historical Solar and Weather Data</h1>
-        <p>Access detailed datasets and customize data outputs for your research.</p>
+        <h1>Explore Historical Solar and Weather Data</h1>
+        <p>Access and customize datasets tailored for your research needs.</p>
       </section>
 
       {/* Data Selection Section */}
@@ -15,55 +27,77 @@ const DatasetsPage = () => {
         <h2>📂 Available Data Outputs</h2>
         <div className="output-options">
           <div className="option-card">
-            <h3>Selected 1-Min Data</h3>
-            <p>Get high-resolution minute-by-minute solar and weather data in ASCII format.</p>
-            <button className="download-button">Download</button>
-          </div>
-          <div className="option-card">
             <h3>Hourly Data</h3>
-            <p>Download aggregated hourly data with detailed statistics in ASCII format.</p>
+            <p>Download aggregated hourly statistics in accessible formats.</p>
             <button className="download-button">Download</button>
           </div>
           <div className="option-card">
             <h3>Daily Statistics</h3>
-            <p>Access summarized daily statistics for long-term trend analysis.</p>
+            <p>Access summarized daily trends for comprehensive analysis.</p>
             <button className="download-button">Download</button>
           </div>
           <div className="option-card">
-            <h3>Live Raw Data</h3>
-            <p>View real-time data outputs in raw ASCII format for immediate insights.</p>
+            <h3>Live Data</h3>
+            <p>Explore real-time raw data outputs for immediate insights.</p>
             <button className="download-button">Download</button>
           </div>
         </div>
       </section>
 
-      {/* Generate Custom Data Section */}
+      {/* Custom Data Section */}
       <section className="custom-data">
-        <h2>⚙️ Generate Custom Data</h2>
-        <p>Select instruments or metrics to create tailored outputs:</p>
-        <form className="custom-data-form">
-          <label htmlFor="instrument">Primary Instrument/Metric:</label>
-          <select id="instrument">
-            <option value="global">Global Horizontal</option>
-            <option value="temperature">Air Temperature</option>
-            <option value="humidity">Relative Humidity</option>
+        <h2>⚙ Generate Custom Data</h2>
+        <p>Select instruments and metrics to create tailored outputs:</p>
+        <form className="custom-data-form" onSubmit={handleSubmit}>
+          <label htmlFor="instrument">Primary Instrument:</label>
+          <select
+            id="instrument"
+            value={instrument}
+            onChange={(e) => setInstrument(e.target.value)}
+          >
+            <optgroup label="Irradiance Parameters">
+              <option value="global">Global Horizontal</option>
+              <option value="direct">Direct Normal</option>
+              <option value="diffuse">Diffuse Horizontal</option>
+              <option value="downwelling-ir">Downwelling IR</option>
+            </optgroup>
+            <optgroup label="Meteorological Parameters">
+              <option value="temperature">Air Temperature</option>
+              <option value="humidity">Relative Humidity</option>
+              <option value="pressure">Pressure</option>
+              <option value="wind-speed">Wind Speed</option>
+              <option value="wind-direction">Wind Direction</option>
+            </optgroup>
           </select>
-          <label htmlFor="secondary">Secondary Instrument/Value:</label>
-          <select id="secondary">
-            <option value="none">None</option>
-            <option value="wind">Wind Speed</option>
-            <option value="pressure">Pressure</option>
+          <label htmlFor="secondary">Secondary Metric:</label>
+          <select
+            id="secondary"
+            value={secondary}
+            onChange={(e) => setSecondary(e.target.value)}
+          >
+            <optgroup label="Irradiance Parameters">
+              <option value="global">Global Horizontal</option>
+              <option value="direct">Direct Normal</option>
+              <option value="diffuse">Diffuse Horizontal</option>
+            </optgroup>
+            <optgroup label="Meteorological Parameters">
+              <option value="wind-speed">Wind Speed</option>
+              <option value="pressure">Pressure</option>
+              <option value="air-temperature">Air Temperature</option>
+            </optgroup>
           </select>
-          <button type="submit" className="generate-button">Generate Data</button>
+          <button type="submit" className="generate-button">
+            Generate Data
+          </button>
         </form>
       </section>
 
       {/* Footer Section */}
       <footer className="datasets-footer">
-        <p>Empowering solar and weather research with precision data outputs.</p>
+        <p>Precision Data for Solar and Weather Research.</p>
       </footer>
     </div>
   );
 };
 
-export default DatasetsPage;
+export default DatasetsPage;
