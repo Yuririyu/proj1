@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom"; // Import Link for navigation
 import "./TopHeader.css";
 
 const TopHeader = () => {
@@ -11,11 +12,13 @@ const TopHeader = () => {
         <h1>The University Of Texas Rio Grande Valley</h1>
       </div>
       <div className="header-buttons">
-        <button>Home</button>
-        <button>Data Sets</button>
+        {/* Place Home button where Data Sets was */}
+        <Link to="/">
+          <button>Home</button>
+        </Link>
       </div>
     </header>
   );
 };
 
-export default TopHeader;
+export default TopHeader;

@@ -1,0 +1,139 @@
+/* General Styling */
+.conditions-page {
+  font-family: "Red Hat Display", sans-serif;
+  color: #333;
+  background-color: #f8f9fc;
+  padding: 60px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* Hero Section */
+.conditions-hero {
+  text-align: center;
+  padding: 100px 40px;
+  background-color: white;
+  color: #0a4b74;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 50px;
+}
+
+.conditions-hero h1 {
+  font-size: 4rem;
+  font-weight: 700;
+}
+
+.conditions-hero p {
+  font-size: 1.8rem;
+}
+
+/* Stats Section */
+.conditions-stats {
+  margin-bottom: 50px;
+  padding: 40px;
+}
+
+.conditions-stats h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #0a4b74;
+  margin-bottom: 30px;
+}
+
+.stats-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  max-width: 300px;
+}
+
+.stat-card h3 {
+  font-size: 1.8rem;
+  color: #cb4900;
+  margin-bottom: 15px;
+}
+
+.stat-card p {
+  font-size: 1.2rem;
+}
+
+/* Solar Radiation Section */
+.solar-section {
+  margin-bottom: 50px;
+  padding: 40px;
+}
+
+.solar-section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #0a4b74;
+  margin-bottom: 30px;
+}
+
+.solar-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.solar-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  max-width: 300px;
+}
+
+.solar-card h3 {
+  font-size: 1.8rem;
+  color: #cb4900;
+  margin-bottom: 15px;
+}
+
+.solar-card p {
+  font-size: 1.2rem;
+}
+
+/* Visual Section */
+.visual-section {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.visual-container {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+}
+
+.visual-container img {
+  width: 100%;
+  max-width: 1200px;
+  border-radius: 10px;
+}
+
+/* Footer Section */
+.conditions-footer {
+  text-align: center;
+  padding: 40px;
+  background-color: #333;
+  color: white;
+  font-size: 1.5rem;
+}
