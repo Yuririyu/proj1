@@ -16,6 +16,7 @@ const App = () => {
           <Route path="/datasets" element={<DatasetsPage />} />
           <Route path="/view-conditions" element={<ConditionsPage />} />
           <Route path="/weather-predictions" element={<PredictionsPage />} />
+
         </Routes>
       </div>
     </Router>
