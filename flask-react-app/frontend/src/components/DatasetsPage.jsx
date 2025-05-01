@@ -58,51 +58,48 @@ const DatasetsPage = () => {
 
       {/* Data Search Section */}
       <section className="data-selection">
-        <h2>🔍 Search Data</h2>
-        <div className="custom-data-form">
-          <label htmlFor="date">Date:</label>
-          <input
-            type="date"
-            id="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            className="border p-2 rounded"
-          />
-          <label htmlFor="hour">Hour (CST):</label>
-          <input
-            type="number"
-            id="hour"
-            placeholder="Hour (0-23)"
-            value={hour}
-            onChange={(e) => setHour(e.target.value)}
-            className="border p-2 rounded"
-          />
-          <label htmlFor="irradianceMin">Min Global Horizontal Irradiance (W/m²):</label>
-          <input
-            type="number"
-            id="irradianceMin"
-            placeholder="Min Irradiance"
-            value={irradianceMin}
-            onChange={(e) => setIrradianceMin(e.target.value)}
-            className="border p-2 rounded"
-          />
-          <label htmlFor="irradianceMax">Max Global Horizontal Irradiance (W/m²):</label>
-          <input
-            type="number"
-            id="irradianceMax"
-            placeholder="Max Irradiance"
-            value={irradianceMax}
-            onChange={(e) => setIrradianceMax(e.target.value)}
-            className="border p-2 rounded"
-          />
-          <button
-            onClick={handleSearch}
-            className="generate-button"
-          >
-            Search
-          </button>
-        </div>
-      </section>
+  <h2>🔍 Search Data</h2>
+  <div className="custom-data-form">
+    <label htmlFor="date">Date:</label>
+    <input
+      type="date"
+      id="date"
+      value={date}
+      onChange={(e) => setDate(e.target.value)}
+    />
+    <label htmlFor="hour">Hour (CST):</label>
+    <input
+      type="number"
+      id="hour"
+      placeholder="Enter hour (0-23)"
+      value={hour}
+      onChange={(e) => setHour(e.target.value)}
+    />
+    <label htmlFor="irradianceMin">Min Global Horizontal Irradiance (W/m²):</label>
+    <input
+      type="number"
+      id="irradianceMin"
+      placeholder="Minimum irradiance"
+      value={irradianceMin}
+      onChange={(e) => setIrradianceMin(e.target.value)}
+    />
+    <label htmlFor="irradianceMax">Max Global Horizontal Irradiance (W/m²):</label>
+    <input
+      type="number"
+      id="irradianceMax"
+      placeholder="Maximum irradiance"
+      value={irradianceMax}
+      onChange={(e) => setIrradianceMax(e.target.value)}
+    />
+    <button
+      onClick={handleSearch}
+      className="generate-button"
+    >
+      Search
+    </button>
+  </div>
+</section>
+
 
       {/* Results Section */}
       <section className="data-selection">
