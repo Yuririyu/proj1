@@ -10,9 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+<<<<<<< HEAD
     "axios": "^1.8.4",
     "date-fns": "^4.1.0",
     "papaparse": "^5.5.2",
+=======
+    "axios": "^1.9.0",
+>>>>>>> bcf9b97acf14b176bb8cde5bd554124ab20c121b
     "react": "^19.0.0",
     "react-datepicker": "^8.3.0",
     "react-dom": "^19.0.0",
