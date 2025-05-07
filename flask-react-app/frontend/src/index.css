@@ -23,11 +23,17 @@ a:hover {
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  body {
+    margin: 0;
+    padding: 0;
+    min-width: 100vw;
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  }
+  
 }
 
 h1 {
@@ -65,4 +71,11 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+
+  html, body, #root {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  
+
 }

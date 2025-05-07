@@ -1,9 +1,42 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./ConditionsPage.css";
-import CleanedSolarData from './components/CleanedSolarData';
-import SolarGraph from './components/SolarGraph.js';
+import CleanedSolarData from "./CleanedSolarData";
+import SolarGraph from "./SolarGraph";
+import Papa from "papaparse";
 
 const ConditionsPage = () => {
+  const [solarData, setSolarData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+
+    const url = `https://midcdmz.nrel.gov/apps/daily.pl?site=UTPASRL&start=20110901&yr=${year}&mo=${month}&dy=${day}`;
+
+    fetch(url)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.text();
+      })
+      .then(text => {
+        const result = Papa.parse(text, { header: true });
+        const cleaned = result.data.filter(row =>
+          Object.values(row).some(val => val && val.trim() !== '')
+        );
+        setSolarData(cleaned);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching or parsing data:', error);
+        setLoading(false);
+      });
+  }, []);
+
   return (
     <div className="conditions-page">
       {/* Hero Section */}
@@ -48,7 +81,6 @@ const ConditionsPage = () => {
         <div className="solar-container">
           <div className="solar-card">
             <h3>Global Horizontal</h3>
-
             <p><strong>Current:</strong> 839.4 W/m²</p>
             <p><strong>Daily Total:</strong> 1.822 kWh/m²</p>
           </div>
@@ -69,18 +101,18 @@ const ConditionsPage = () => {
           </div>
         </div>
       </section>
-      
-{/* Cleaned Solar Data Table */}
-<section className="solar-table">
-  <h2>📄 Cleaned Solar Data</h2>
-  <CleanedSolarData />
-</section>
+
+      {/* Cleaned Solar Data Table */}
+      <section className="solar-table">
+        <h2>📄 Cleaned Solar Data</h2>
+        <CleanedSolarData data={solarData} loading={loading} />
+      </section>
 
       {/* Graph Visualizations Section */}
       <section className="visual-section">
         <h2>📊 Solar Radiation and Trends</h2>
         <div className="visual-container">
-          <SolarGraph />
+          <SolarGraph data={solarData} loading={loading} />
         </div>
       </section>
 
@@ -93,3 +125,4 @@ const ConditionsPage = () => {
 };
 
 export default ConditionsPage;
+

@@ -1,137 +1,144 @@
 /* General Styling */
 .datasets-page {
-    font-family: "Red Hat Display", sans-serif;
-    color: #333;
-    background-color: #f8f9fc; /* Light grey background */
-    padding: 60px; /* Increased padding for larger screens */
-    max-width: 1600px; /* Limit the maximum width */
-    margin: 0 auto; /* Center the page content */
-  }
-  
-  /* Hero Section */
-  .datasets-hero {
-    text-align: center;
-    padding: 100px 40px; /* Larger padding for spaciousness */
-    background-color: white;
-    color: #0a4b74;
-    border-radius: 10px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Enhanced shadow for depth */
-    margin-bottom: 50px;
-  }
-  
-  .datasets-hero h1 {
-    font-size: 4rem; /* Increased font size for larger screens */
-    font-weight: 700;
-  }
-  
-  .datasets-hero p {
-    font-size: 1.8rem; /* Larger text for readability */
-  }
-  
-  /* Data Selection Section */
-  .data-selection {
-    margin-bottom: 50px;
-    text-align: center;
-  }
-  
-  .output-options {
-    display: flex;
-    justify-content: center;
-    gap: 40px; /* More spacing between cards */
-    flex-wrap: wrap;
-  }
-  
-  .option-card {
-    background-color: white;
-    border-radius: 10px;
-    padding: 30px; /* Increased padding for larger cards */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    max-width: 400px; /* Slightly larger cards */
-    flex: 1;
-  }
-  
-  .option-card h3 {
-    font-size: 1.8rem; /* Larger font for card headings */
-    color: #cb4900; /* Vibrant orange */
-    margin-bottom: 15px;
-  }
-  
-  .option-card p {
-    font-size: 1.2rem; /* Larger text inside cards */
-    margin-bottom: 20px;
-  }
-  
-  .download-button {
-    background-color: #cb4900;
-    color: white;
-    padding: 12px 20px; /* Bigger buttons for larger screens */
-    border-radius: 20px;
-    border: none;
-    cursor: pointer;
-    font-size: 1.2rem; /* Larger button text */
-    font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-  
-  .download-button:hover {
-    background-color: #e06a3f;
-    transform: translateY(-3px); /* Enhanced hover effect */
-  }
-  
-  /* Custom Data Section */
-  .custom-data {
-    margin-bottom: 50px;
-    text-align: center;
-  }
-  
-  .custom-data-form {
-    display: inline-block;
-    text-align: left;
-    background-color: white;
-    border-radius: 10px;
-    padding: 40px; /* Increased padding */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  }
-  
-  .custom-data-form label {
-    display: block;
-    margin-bottom: 15px; /* More spacing between form fields */
-    font-weight: 500;
-  }
-  
-  .custom-data-form select {
-    width: 100%;
-    padding: 12px; /* Larger dropdown fields */
-    margin-bottom: 25px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 1rem; /* Adjusted font size for larger fields */
-  }
-  
-  .generate-button {
-    background-color: #0a4b74; /* Deep blue */
-    color: white;
-    padding: 12px 20px;
-    border-radius: 20px;
-    border: none;
-    cursor: pointer;
-    font-size: 1.2rem; /* Larger button text */
-    font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-  
-  .generate-button:hover {
-    background-color: #086296; /* Slightly darker blue */
-    transform: translateY(-3px); /* Subtle hover lift */
-  }
-  
-  /* Footer Section */
-  .datasets-footer {
-    text-align: center;
-    padding: 40px;
-    background-color: #333;
-    color: white;
-    font-size: 1.5rem; /* Larger footer text */
-    border-radius: 10px;
-  }
-  
+  font-family: "Red Hat Display", sans-serif;
+  color: #333;
+  background-color: #f8f9fc;
+  padding: 60px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* Hero Section */
+.datasets-hero {
+  text-align: center;
+  padding: 80px 40px;
+  background-color: white;
+  color: #0a4b74;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 50px;
+}
+
+.datasets-hero h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+}
+
+.datasets-hero p {
+  font-size: 1.6rem;
+}
+
+/* Data Selection Section */
+.data-selection {
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.output-options {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.option-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  flex: 1;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.option-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.option-card h3 {
+  font-size: 1.8rem;
+  color: #cb4900;
+  margin-bottom: 15px;
+}
+
+.option-card p {
+  font-size: 1.2rem;
+}
+
+.download-button {
+  background-color: #cb4900;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.download-button:hover {
+  background-color: #e06a3f;
+  transform: translateY(-3px);
+}
+
+/* Custom Data Section */
+.custom-data {
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.custom-data-form {
+  display: inline-block;
+  background-color: white;
+  border-radius: 10px;
+  padding: 40px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.custom-data-form label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.custom-data-form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+select:hover {
+  border-color: #0a4b74;
+  box-shadow: 0 4px 8px rgba(10, 75, 116, 0.2);
+}
+
+.generate-button {
+  background-color: #0a4b74;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.generate-button:hover {
+  background-color: #086296;
+  transform: translateY(-3px);
+}
+
+/* Footer Section */
+.datasets-footer {
+  text-align: center;
+  padding: 30px;
+  background-color: #222;
+  color: white;
+  font-size: 1.4rem;
+  border-radius: 10px;
+}

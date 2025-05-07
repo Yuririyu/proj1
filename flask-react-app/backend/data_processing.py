@@ -7,7 +7,7 @@ import os
 # Load environment variables from .env file (for API key security)
 load_dotenv()
 API_KEY = os.getenv("API_KEY", "zlE8lD3Q0phImhlFOPapdHQEcpOVB6VO2z4z10Fu")  # Fallback if not in .env
-BASE_URL = "https://example-api.com/data"  # Replace with actual API endpoint
+BASE_URL = "https://midcdmz.nrel.gov/apps/data_api.pl"  # Replace with actual API endpoint
 
 
 def fetch_data_from_api(start_date, end_date, output_csv):
@@ -17,8 +17,9 @@ def fetch_data_from_api(start_date, end_date, output_csv):
         "Content-Type": "application/json"
     }
     params = {
-        "start_date": start_date,
-        "end_date": end_date
+        "site": "UTPASRL",
+    "begin": start_date.replace("-", ""),
+    "end": end_date.replace("-", ""),
     }
 
     print(f"Fetching data from {BASE_URL}...")
