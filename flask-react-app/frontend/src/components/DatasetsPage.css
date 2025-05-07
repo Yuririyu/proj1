@@ -4,8 +4,8 @@
   color: #333;
   background-color: #f8f9fc;
   padding: 60px;
-  max-width: 1600px;
-  margin: 0 auto;
+  max-width: 1200px; /* Compact page width */
+  margin: auto;
 }
 
 /* Hero Section */
@@ -20,20 +20,24 @@
 }
 
 .datasets-hero h1 {
-  font-size: 3.5rem;
+  font-size: 3.2rem;
   font-weight: 700;
 }
 
 .datasets-hero p {
-  font-size: 1.6rem;
+  font-size: 1.4rem;
 }
 
 /* Data Selection Section */
 .data-selection {
-  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
+  margin-bottom: 50px;
 }
 
+/* Output options styling */
 .output-options {
   display: flex;
   justify-content: center;
@@ -48,6 +52,7 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   max-width: 400px;
   flex: 1;
+  text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -57,7 +62,7 @@
 }
 
 .option-card h3 {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   color: #cb4900;
   margin-bottom: 15px;
 }
@@ -66,6 +71,22 @@
   font-size: 1.2rem;
 }
 
+/* View Live Data button */
+.view-data-button {
+  background-color: #0a4b74;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-size: 1.2rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.view-data-button:hover {
+  background-color: #086296;
+  transform: translateY(-3px);
+}
+
+/* Download Button Styling */
 .download-button {
   background-color: #cb4900;
   color: white;
@@ -83,33 +104,28 @@
 }
 
 /* Custom Data Section */
-.custom-data {
-  margin-bottom: 50px;
-  text-align: center;
-}
-
 .custom-data-form {
   display: flex;
-  flex-direction: column; /* Align items vertically */
-  gap: 20px; /* Space between form elements */
+  flex-direction: column;
+  gap: 20px;
   background-color: white;
-  border-radius: 15px; /* Round edges for modern look */
+  border-radius: 15px;
   padding: 40px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  max-width: 600px; /* Make form compact */
-  margin: 0 auto; /* Center the form */
+  max-width: 600px;
+  margin: auto;
 }
 
 .custom-data-form label {
-  font-weight: 600; /* Bold labels for clarity */
-  color: #0a4b74; /* Match the page's color scheme */
+  font-weight: 600;
+  color: #0a4b74;
   margin-bottom: 5px;
 }
 
 .custom-data-form input {
   width: 100%;
   padding: 12px;
-  border-radius: 8px; /* Rounded edges for inputs */
+  border-radius: 8px;
   border: 1px solid #ccc;
   font-size: 1.1rem;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -117,26 +133,75 @@
 
 input:hover,
 input:focus {
-  border-color: #0a4b74; /* Blue highlight */
-  box-shadow: 0 4px 8px rgba(10, 75, 116, 0.2); /* Glow effect */
+  border-color: #0a4b74;
+  box-shadow: 0 4px 8px rgba(10, 75, 116, 0.2);
 }
 
 .generate-button {
-  background-color: #0a4b74; /* Deep blue for consistency */
+  background-color: #0a4b74;
   color: white;
   padding: 15px 25px;
-  border-radius: 30px; /* Modern rounded button */
-  border: none;
-  cursor: pointer;
+  border-radius: 30px;
   font-size: 1.3rem;
   font-weight: bold;
   transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .generate-button:hover {
-  background-color: #086296; /* Darker blue on hover */
+  background-color: #086296;
   transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Enhance hover effect */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Center & Improve Table Styling */
+table {
+  width: 80%;
+  margin: auto;
+  border-collapse: collapse;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  background-color: white;
+}
+
+/* Style table headers */
+thead {
+  background-color: #0a4b74;
+  color: white;
+  font-size: 1.2rem;
+}
+
+th {
+  padding: 12px;
+  font-weight: bold;
+  border-bottom: 2px solid #ccc;
+}
+
+/* Style table rows */
+td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+/* Zebra striping for better readability */
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+  background-color: #e6f7ff;
+}
+
+/* Divider for different dates */
+.date-divider {
+  background-color: #0a4b74 !important;
+}
+
+.date-heading {
+  background-color: #0a4b74 !important;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  padding: 12px;
 }
 
 /* Footer Section */

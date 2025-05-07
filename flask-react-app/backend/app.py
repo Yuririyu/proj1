@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 import sqlite3
 from flask_cors import CORS
+from datetime import datetime
 
 app = Flask(__name__)
 CORS(app)   # Enable CORS for all routes
@@ -19,27 +20,38 @@ def query_database(query, args=(), one=False):
 
 @app.route('/api/data', methods=['GET'])
 def get_data():
-    """Fetch data with optional filters (date, hour, and irradiance ranges)."""
-    date = request.args.get('date')  # Filter by specific date (YYYY-MM-DD)
+    """Fetch data with optional filters (date range, hour, and irradiance ranges)."""
+    start_date = request.args.get('start_date')  # Beginning of the week
+    end_date = request.args.get('end_date')  # End of the week
     hour_cst = request.args.get('hour_cst')  # Filter by specific hour (0-23)
     ghi_min = request.args.get('ghi_min')  # Min Global Horizontal Irradiance
     ghi_max = request.args.get('ghi_max')  # Max Global Horizontal Irradiance
 
-    query = "SELECT * FROM WeatherSolarData"
+    # Require at least a start date to prevent returning all data
+    if not start_date:
+        return jsonify({"error": "Please provide a start date to fetch data."}), 400
+
+    query = """
+    SELECT date, hour_cst, avg_global_horizontal, avg_direct_normal,
+    avg_diffuse_horizontal, avg_downwelling_ir, avg_pyrgeometer_net,
+    avg_global_stdev, avg_direct_stdev, avg_diffuse_stdev,
+    avg_ir_stdev, avg_net_stdev
+    FROM WeatherSolarData
+    """
+
+
     filters = []
     args = []
 
-    # Date filter
-    if date:
-        filters.append("date = ?")
-        args.append(date)
-
-    # Hour filter
+    # Apply date range filter
+    if start_date and end_date:
+        filters.append("date BETWEEN ? AND ?")
+        args.extend([start_date, end_date])
+    
+    # Apply existing filters
     if hour_cst:
         filters.append("hour_cst = ?")
         args.append(hour_cst)
-
-    # Global Horizontal Irradiance (GHI) filter
     if ghi_min and ghi_max:
         filters.append("avg_global_horizontal BETWEEN ? AND ?")
         args.extend([ghi_min, ghi_max])
@@ -50,15 +62,21 @@ def get_data():
         filters.append("avg_global_horizontal <= ?")
         args.append(ghi_max)
 
-    # Combine filters if any
+    # Combine filters
     if filters:
         query += " WHERE " + " AND ".join(filters)
-
 
     # Execute query
     try:
         results = query_database(query, args)
-        return jsonify([dict(row) for row in results])
+
+        # Format date for readability & remove unwanted fields
+        formatted_results = [
+            {**dict(row), "date": datetime.strptime(row["date"], "%Y-%m-%d").strftime("%B %d, %Y")}
+            for row in results
+        ]
+
+        return jsonify(formatted_results)
     except sqlite3.OperationalError as e:
         return jsonify({"error": str(e)}), 400
 

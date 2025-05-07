@@ -3,7 +3,8 @@ import axios from "axios";
 import "./DatasetsPage.css";
 
 const DatasetsPage = () => {
-  const [date, setDate] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const [hour, setHour] = useState('');
   const [irradianceMin, setIrradianceMin] = useState('');
   const [irradianceMax, setIrradianceMax] = useState('');
@@ -13,7 +14,8 @@ const DatasetsPage = () => {
     const params = {};
 
     // Add filters to the query parameters
-    if (date) params.date = date;
+    if (startDate) params.start_date = startDate;
+    if (endDate) params.end_date = endDate;
     if (hour) params.hour_cst = hour;
     if (irradianceMin) params.ghi_min = irradianceMin;
     if (irradianceMax) params.ghi_max = irradianceMax;
@@ -51,55 +53,66 @@ const DatasetsPage = () => {
           <div className="option-card">
             <h3>Live Data</h3>
             <p>Explore real-time raw data outputs for immediate insights.</p>
-            <button className="download-button">Download</button>
+            <button
+              className="view-data-button"
+              onClick={() => window.open("https://midcdmz.nrel.gov/apps/gdisplay.pl?UTPASRL", "_blank")}
+            >
+              View Live Data
+            </button>
           </div>
         </div>
       </section>
 
       {/* Data Search Section */}
       <section className="data-selection">
-  <h2>🔍 Search Data</h2>
-  <div className="custom-data-form">
-    <label htmlFor="date">Date:</label>
-    <input
-      type="date"
-      id="date"
-      value={date}
-      onChange={(e) => setDate(e.target.value)}
-    />
-    <label htmlFor="hour">Hour (CST):</label>
-    <input
-      type="number"
-      id="hour"
-      placeholder="Enter hour (0-23)"
-      value={hour}
-      onChange={(e) => setHour(e.target.value)}
-    />
-    <label htmlFor="irradianceMin">Min Global Horizontal Irradiance (W/m²):</label>
-    <input
-      type="number"
-      id="irradianceMin"
-      placeholder="Minimum irradiance"
-      value={irradianceMin}
-      onChange={(e) => setIrradianceMin(e.target.value)}
-    />
-    <label htmlFor="irradianceMax">Max Global Horizontal Irradiance (W/m²):</label>
-    <input
-      type="number"
-      id="irradianceMax"
-      placeholder="Maximum irradiance"
-      value={irradianceMax}
-      onChange={(e) => setIrradianceMax(e.target.value)}
-    />
-    <button
-      onClick={handleSearch}
-      className="generate-button"
-    >
-      Search
-    </button>
-  </div>
-</section>
-
+        <h2>🔍 Search Data</h2>
+        <div className="custom-data-form">
+          <label htmlFor="startDate">Start Date:</label>
+          <input
+            type="date"
+            id="startDate"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
+          <label htmlFor="endDate">End Date:</label>
+          <input
+            type="date"
+            id="endDate"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+          />
+          <label htmlFor="hour">Hour (CST):</label>
+          <input
+            type="number"
+            id="hour"
+            placeholder="Enter hour (0-23)"
+            value={hour}
+            onChange={(e) => setHour(e.target.value)}
+          />
+          <label htmlFor="irradianceMin">Min Global Horizontal Irradiance (W/m²):</label>
+          <input
+            type="number"
+            id="irradianceMin"
+            placeholder="Minimum irradiance"
+            value={irradianceMin}
+            onChange={(e) => setIrradianceMin(e.target.value)}
+          />
+          <label htmlFor="irradianceMax">Max Global Horizontal Irradiance (W/m²):</label>
+          <input
+            type="number"
+            id="irradianceMax"
+            placeholder="Maximum irradiance"
+            value={irradianceMax}
+            onChange={(e) => setIrradianceMax(e.target.value)}
+          />
+          <button
+            onClick={handleSearch}
+            className="generate-button"
+          >
+            Search
+          </button>
+        </div>
+      </section>
 
       {/* Results Section */}
       <section className="data-selection">
@@ -111,27 +124,49 @@ const DatasetsPage = () => {
                 <tr>
                   <th className="border px-2 py-1">Date</th>
                   <th className="border px-2 py-1">Hour (CST)</th>
-                  <th className="border px-2 py-1">Global Horizontal Irradiance (W/m²)</th>
-                  <th className="border px-2 py-1">Direct Normal Irradiance (W/m²)</th>
-                  <th className="border px-2 py-1">Diffuse Horizontal Irradiance (W/m²)</th>
-                  <th className="border px-2 py-1">Air Temperature (°C)</th>
-                  <th className="border px-2 py-1">Relative Humidity (%)</th>
-                  <th className="border px-2 py-1">Pressure (mBar)</th>
+                  <th className="border px-2 py-1">Global Horizontal (W/m²)</th>
+                  <th className="border px-2 py-1">Direct Normal (W/m²)</th>
+                  <th className="border px-2 py-1">Diffuse Horizontal (W/m²)</th>
+                  <th className="border px-2 py-1">Downwelling IR (W/m²)</th>
+                  <th className="border px-2 py-1">Pyrgeometer Net (W/m²)</th>
+                  <th className="border px-2 py-1">Global Stdev (W/m²)</th>
+                  <th className="border px-2 py-1">Direct Stdev (W/m²)</th>
+                  <th className="border px-2 py-1">Diffuse Stdev (W/m²)</th>
+                  <th className="border px-2 py-1">IR Stdev (W/m²)</th>
+                  <th className="border px-2 py-1">Net Stdev (W/m²)</th>
                 </tr>
               </thead>
               <tbody>
-                {results.map((row) => (
-                  <tr key={row.id}>
-                    <td className="border px-2 py-1">{row.date}</td>
-                    <td className="border px-2 py-1">{row.hour_cst}</td>
-                    <td className="border px-2 py-1">{row.avg_global_horizontal}</td>
-                    <td className="border px-2 py-1">{row.avg_direct_normal}</td>
-                    <td className="border px-2 py-1">{row.avg_diffuse_horizontal}</td>
-                    <td className="border px-2 py-1">{row.avg_air_temperature}</td>
-                    <td className="border px-2 py-1">{row.avg_relative_humidity}</td>
-                    <td className="border px-2 py-1">{row.avg_pressure_mbar}</td>
-                  </tr>
-                ))}
+                {results.map((row, index) => {
+                  const prevRow = index > 0 ? results[index - 1] : null;
+                  const isNewDate = prevRow && row.date !== prevRow.date;
+
+                  return (
+                    <React.Fragment key={row.id}>
+                      {isNewDate && (
+                        <tr className="date-divider">
+                          <td colSpan="12" className="date-heading">
+                            📅 {row.date}
+                          </td>
+                        </tr>
+                      )}
+                      <tr>
+                        <td className="border px-2 py-1">{row.date}</td>
+                        <td className="border px-2 py-1">{row.hour_cst}</td>
+                        <td className="border px-2 py-1">{row.avg_global_horizontal}</td>
+                        <td className="border px-2 py-1">{row.avg_direct_normal}</td>
+                        <td className="border px-2 py-1">{row.avg_diffuse_horizontal}</td>
+                        <td className="border px-2 py-1">{row.avg_downwelling_ir}</td>
+                        <td className="border px-2 py-1">{row.avg_pyrgeometer_net}</td>
+                        <td className="border px-2 py-1">{row.avg_global_stdev}</td>
+                        <td className="border px-2 py-1">{row.avg_direct_stdev}</td>
+                        <td className="border px-2 py-1">{row.avg_diffuse_stdev}</td>
+                        <td className="border px-2 py-1">{row.avg_ir_stdev}</td>
+                        <td className="border px-2 py-1">{row.avg_net_stdev}</td>
+                      </tr>
+                    </React.Fragment>
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -139,11 +174,6 @@ const DatasetsPage = () => {
           <p>No results found. Try adjusting your search criteria.</p>
         )}
       </section>
-
-      {/* Footer Section */}
-      <footer className="datasets-footer">
-        <p>Precision Data for Solar and Weather Research.</p>
-      </footer>
     </div>
   );
 };
