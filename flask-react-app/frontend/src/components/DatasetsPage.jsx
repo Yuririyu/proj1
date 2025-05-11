@@ -1,40 +1,54 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { DateRange } from "react-date-range";
-import "react-date-range/dist/styles.css"; // Default styles
-import "react-date-range/dist/theme/default.css"; // Theme styles
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
 import "./DatasetsPage.css";
+
+const metricNames = {
+  avg_global_horizontal: "Global Horizontal (W/m²)",
+  avg_direct_normal: "Direct Normal (W/m²)",
+  avg_diffuse_horizontal: "Diffuse Horizontal (W/m²)",
+  avg_downwelling_ir: "Downwelling IR (W/m²)",
+  avg_pyrgeometer_net: "Pyrgeometer Net (W/m²)",
+  avg_global_stdev: "Global Stdev (W/m²)",
+  avg_direct_stdev: "Direct Stdev (W/m²)",
+  avg_diffuse_stdev: "Diffuse Stdev (W/m²)",
+  avg_ir_stdev: "IR Stdev (W/m²)",
+  avg_net_stdev: "Net Stdev (W/m²)"
+};
 
 const DatasetsPage = () => {
   const [dateRange, setDateRange] = useState([
-    {
-      startDate: new Date(),
-      endDate: new Date(),
-      key: "selection",
-    },
+    { startDate: new Date(), endDate: new Date(), key: "selection" },
   ]);
-  const [hour, setHour] = useState("");
-  const [irradianceMin, setIrradianceMin] = useState("");
-  const [irradianceMax, setIrradianceMax] = useState("");
+  const [selectedHours, setSelectedHours] = useState([]);
+  const [selectedMetric, setSelectedMetric] = useState("");
   const [results, setResults] = useState([]);
+  const [page, setPage] = useState(1);
+  const limit = 50; // Results per page
 
-  const handleDateChange = (ranges) => {
-    setDateRange([ranges.selection]);
-  };
+  const handleDateChange = (ranges) => setDateRange([ranges.selection]);
 
-  const handleSearch = async () => {
+  const fetchData = async (newPage = 1) => {
+    setPage(newPage); // Update the page state
+
     const params = {
       start_date: dateRange[0].startDate.toISOString().split("T")[0],
       end_date: dateRange[0].endDate.toISOString().split("T")[0],
+      page: newPage,
+      limit
     };
 
-    if (hour) params.hour_cst = hour;
-    if (irradianceMin) params.ghi_min = irradianceMin;
-    if (irradianceMax) params.ghi_max = irradianceMax;
+    if (selectedHours.length > 0 && !selectedHours.includes("")) {
+      params.hours = selectedHours.join(",");
+    }
+
+    if (selectedMetric) params.metric = selectedMetric;
 
     try {
       const response = await axios.get("http://127.0.0.1:5000/api/data", { params });
-      setResults(response.data);
+      setResults(response.data.data); // Ensure results update with pagination
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -80,100 +94,85 @@ const DatasetsPage = () => {
         <h2>🔍 Search Data</h2>
         <div className="custom-data-form">
           <h3>Select Date Range:</h3>
-          <DateRange
-            ranges={dateRange}
-            onChange={handleDateChange}
-            moveRangeOnFirstSelection={false}
-            showSelectionPreview={true}
-          />
+          <DateRange ranges={dateRange} onChange={handleDateChange} showSelectionPreview />
 
-          <label htmlFor="hour">Hour (CST):</label>
-          <input
-            type="number"
-            id="hour"
-            placeholder="Enter hour (0-23)"
-            value={hour}
-            onChange={(e) => setHour(e.target.value)}
-          />
+          {/* Hour Selection (Grid of Clickable Buttons) */}
+          <label>Select Hours (Optional, CST):</label>
+          <div className="hour-grid">
+            {Array.from({ length: 24 }, (_, i) => (
+              <button
+                key={i}
+                className={`hour-button ${selectedHours.includes(i.toString()) ? "selected" : ""}`}
+                onClick={() => {
+                  setSelectedHours(prev =>
+                    prev.includes(i.toString()) ? prev.filter(h => h !== i.toString()) : [...prev, i.toString()]
+                  );
+                }}
+              >
+                {i}:00
+              </button>
+            ))}
+          </div>
 
-          <label htmlFor="irradianceMin">Min Global Horizontal Irradiance (W/m²):</label>
-          <input
-            type="number"
-            id="irradianceMin"
-            placeholder="Minimum irradiance"
-            value={irradianceMin}
-            onChange={(e) => setIrradianceMin(e.target.value)}
-          />
+          {/* Metric Selection */}
+          <label>Filter by Irradiance Metric (Optional):</label>
+          <select id="metric" value={selectedMetric} onChange={(e) => setSelectedMetric(e.target.value)}>
+            <option value="">All Metrics</option>
+            {Object.keys(metricNames).map((metric, i) => (
+              <option key={i} value={metric}>{metricNames[metric]}</option>
+            ))}
+          </select>
 
-          <label htmlFor="irradianceMax">Max Global Horizontal Irradiance (W/m²):</label>
-          <input
-            type="number"
-            id="irradianceMax"
-            placeholder="Maximum irradiance"
-            value={irradianceMax}
-            onChange={(e) => setIrradianceMax(e.target.value)}
-          />
-
-          <button onClick={handleSearch} className="generate-button">
-            Search
-          </button>
+          <button onClick={() => fetchData(1)} className="generate-button">Search</button>
         </div>
       </section>
 
       {/* Results Section */}
       <section className="data-selection">
-        <h2>📋 Search Results</h2>
+        <h2>📋 Results</h2>
         {results.length > 0 ? (
-          <div className="overflow-x-auto">
-            <table className="min-w-full text-sm">
-              <thead>
-                <tr>
-                  <th className="border px-2 py-1">Date</th>
-                  <th className="border px-2 py-1">Hour (CST)</th>
-                  <th className="border px-2 py-1">Global Horizontal (W/m²)</th>
-                  <th className="border px-2 py-1">Direct Normal (W/m²)</th>
-                  <th className="border px-2 py-1">Diffuse Horizontal (W/m²)</th>
-                  <th className="border px-2 py-1">Downwelling IR (W/m²)</th>
-                  <th className="border px-2 py-1">Pyrgeometer Net (W/m²)</th>
-                  <th className="border px-2 py-1">Global Stdev (W/m²)</th>
-                  <th className="border px-2 py-1">Direct Stdev (W/m²)</th>
-                  <th className="border px-2 py-1">Diffuse Stdev (W/m²)</th>
-                  <th className="border px-2 py-1">IR Stdev (W/m²)</th>
-                  <th className="border px-2 py-1">Net Stdev (W/m²)</th>
-                </tr>
-              </thead>
-              <tbody>
-                {results.map((row, index) => {
-                  const prevRow = index > 0 ? results[index - 1] : null;
-                  const isNewDate = prevRow && row.date !== prevRow.date;
-
-                  return (
-                    <React.Fragment key={row.id}>
-                      {isNewDate && (
-                        <tr className="date-divider">
-                          <td colSpan="12" className="date-heading">📅 {row.date}</td>
-                        </tr>
+          <>
+            <div className="overflow-x-auto">
+              <table className="min-w-full text-sm">
+                <thead>
+                  <tr>
+                    <th className="border px-2 py-1">Date</th>
+                    <th className="border px-2 py-1">Hour (CST)</th>
+                    {selectedMetric ? (
+                      <th className="border px-2 py-1">{metricNames[selectedMetric]}</th>
+                    ) : (
+                      Object.keys(metricNames).map((metric, i) => (
+                        <th key={i} className="border px-2 py-1">{metricNames[metric]}</th>
+                      ))
+                    )}
+                  </tr>
+                </thead>
+                <tbody>
+                  {results.map((row, index) => (
+                    <tr key={index}>
+                      <td className="border px-2 py-1">{row.date}</td>
+                      <td className="border px-2 py-1">{row.hour_cst}</td>
+                      {selectedMetric ? (
+                        <td className="border px-2 py-1">{row[selectedMetric]}</td>
+                      ) : (
+                        Object.keys(metricNames).map((metric, i) => (
+                          <td key={i} className="border px-2 py-1">{row[metric]}</td>
+                        ))
                       )}
-                      <tr>
-                        <td className="border px-2 py-1">{row.date}</td>
-                        <td className="border px-2 py-1">{row.hour_cst}</td>
-                        <td className="border px-2 py-1">{row.avg_global_horizontal}</td>
-                        <td className="border px-2 py-1">{row.avg_direct_normal}</td>
-                        <td className="border px-2 py-1">{row.avg_diffuse_horizontal}</td>
-                        <td className="border px-2 py-1">{row.avg_downwelling_ir}</td>
-                        <td className="border px-2 py-1">{row.avg_pyrgeometer_net}</td>
-                        <td className="border px-2 py-1">{row.avg_global_stdev}</td>
-                        <td className="border px-2 py-1">{row.avg_direct_stdev}</td>
-                        <td className="border px-2 py-1">{row.avg_diffuse_stdev}</td>
-                        <td className="border px-2 py-1">{row.avg_ir_stdev}</td>
-                        <td className="border px-2 py-1">{row.avg_net_stdev}</td>
-                      </tr>
-                    </React.Fragment>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Pagination */}
+            <div className="pagination">
+              <button disabled={page === 1} onClick={() => fetchData(page - 1)}>⬅ Previous</button>
+              {results.length === limit && (
+                <button onClick={() => fetchData(page + 1)}>Next ➡</button>
+              )}
+            </div>
+          </>
         ) : (
           <p>No results found. Try adjusting your search criteria.</p>
         )}
