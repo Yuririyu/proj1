@@ -1,21 +1,33 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { DateRange } from "react-date-range";
+import "react-date-range/dist/styles.css"; // Default styles
+import "react-date-range/dist/theme/default.css"; // Theme styles
 import "./DatasetsPage.css";
 
 const DatasetsPage = () => {
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [hour, setHour] = useState('');
-  const [irradianceMin, setIrradianceMin] = useState('');
-  const [irradianceMax, setIrradianceMax] = useState('');
+  const [dateRange, setDateRange] = useState([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: "selection",
+    },
+  ]);
+  const [hour, setHour] = useState("");
+  const [irradianceMin, setIrradianceMin] = useState("");
+  const [irradianceMax, setIrradianceMax] = useState("");
   const [results, setResults] = useState([]);
 
-  const handleSearch = async () => {
-    const params = {};
+  const handleDateChange = (ranges) => {
+    setDateRange([ranges.selection]);
+  };
 
-    // Add filters to the query parameters
-    if (startDate) params.start_date = startDate;
-    if (endDate) params.end_date = endDate;
+  const handleSearch = async () => {
+    const params = {
+      start_date: dateRange[0].startDate.toISOString().split("T")[0],
+      end_date: dateRange[0].endDate.toISOString().split("T")[0],
+    };
+
     if (hour) params.hour_cst = hour;
     if (irradianceMin) params.ghi_min = irradianceMin;
     if (irradianceMax) params.ghi_max = irradianceMax;
@@ -24,7 +36,7 @@ const DatasetsPage = () => {
       const response = await axios.get("http://127.0.0.1:5000/api/data", { params });
       setResults(response.data);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
     }
   };
 
@@ -43,7 +55,7 @@ const DatasetsPage = () => {
           <div className="option-card">
             <h3>Hourly Data</h3>
             <p>Download aggregated hourly statistics in accessible formats.</p>
-            <button className="download-button">Download</button>
+            <button className="download-button">Select Data</button>
           </div>
           <div className="option-card">
             <h3>Daily Statistics</h3>
@@ -67,20 +79,14 @@ const DatasetsPage = () => {
       <section className="data-selection">
         <h2>🔍 Search Data</h2>
         <div className="custom-data-form">
-          <label htmlFor="startDate">Start Date:</label>
-          <input
-            type="date"
-            id="startDate"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
+          <h3>Select Date Range:</h3>
+          <DateRange
+            ranges={dateRange}
+            onChange={handleDateChange}
+            moveRangeOnFirstSelection={false}
+            showSelectionPreview={true}
           />
-          <label htmlFor="endDate">End Date:</label>
-          <input
-            type="date"
-            id="endDate"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-          />
+
           <label htmlFor="hour">Hour (CST):</label>
           <input
             type="number"
@@ -89,6 +95,7 @@ const DatasetsPage = () => {
             value={hour}
             onChange={(e) => setHour(e.target.value)}
           />
+
           <label htmlFor="irradianceMin">Min Global Horizontal Irradiance (W/m²):</label>
           <input
             type="number"
@@ -97,6 +104,7 @@ const DatasetsPage = () => {
             value={irradianceMin}
             onChange={(e) => setIrradianceMin(e.target.value)}
           />
+
           <label htmlFor="irradianceMax">Max Global Horizontal Irradiance (W/m²):</label>
           <input
             type="number"
@@ -105,10 +113,8 @@ const DatasetsPage = () => {
             value={irradianceMax}
             onChange={(e) => setIrradianceMax(e.target.value)}
           />
-          <button
-            onClick={handleSearch}
-            className="generate-button"
-          >
+
+          <button onClick={handleSearch} className="generate-button">
             Search
           </button>
         </div>
@@ -145,9 +151,7 @@ const DatasetsPage = () => {
                     <React.Fragment key={row.id}>
                       {isNewDate && (
                         <tr className="date-divider">
-                          <td colSpan="12" className="date-heading">
-                            📅 {row.date}
-                          </td>
+                          <td colSpan="12" className="date-heading">📅 {row.date}</td>
                         </tr>
                       )}
                       <tr>
