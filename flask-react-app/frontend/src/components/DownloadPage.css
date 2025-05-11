@@ -1,0 +1,88 @@
+/* General Page Styling */
+.download-page {
+    font-family: "Red Hat Display", sans-serif;
+    color: #333;
+    background-color: #f8f9fc;
+    padding: 50px 20px;
+    width: 90%;
+    max-width: 1600px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Hero Section */
+  .download-hero {
+    text-align: center;
+    padding: 60px 30px;
+    background-color: white;
+    color: #0a4b74;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+    width: 100%;
+    max-width: 800px;
+  }
+  
+  /* Download Options */
+  .download-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: white;
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+  }
+  
+  .download-options h2 {
+    font-size: 1.8rem;
+    color: #0a4b74;
+  }
+  
+  .download-options h3 {
+    font-size: 1.3rem;
+    margin-top: 15px;
+  }
+  
+  /* File Format Dropdown */
+  select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 1.1rem;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  select:hover,
+  select:focus {
+    border-color: #0a4b74;
+    box-shadow: 0 4px 8px rgba(10, 75, 116, 0.2);
+  }
+  
+  /* Download Button */
+  .download-button {
+    background-color: #0a4b74;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 30px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 20px;
+  }
+  
+  .download-button:hover {
+    background-color: #086296;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  

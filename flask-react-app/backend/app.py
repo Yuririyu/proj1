@@ -1,7 +1,9 @@
-from flask import Flask, jsonify, request
+import csv
+import json
+import pandas as pd
 import sqlite3
+from flask import Flask, jsonify, request, Response
 from flask_cors import CORS
-from datetime import datetime
 
 app = Flask(__name__)
 CORS(app)
@@ -21,65 +23,49 @@ def query_database(query, args=(), one=False):
 def get_data():
     start_date = request.args.get('start_date')
     end_date = request.args.get('end_date')
-    hours = request.args.get('hours')
-    selected_metric = request.args.get('metric')
-    page = int(request.args.get('page', 1))  # Default to page 1
-    limit = int(request.args.get('limit', 50))  # Default to 50 results per page
+    page = int(request.args.get('page', 1))
+    limit = int(request.args.get('limit', 50))
 
-    print(f"Received: start_date={start_date}, end_date={end_date}, hours={hours}, metric={selected_metric}, page={page}, limit={limit}")
+    query = "SELECT * FROM WeatherSolarData WHERE date BETWEEN ? AND ? ORDER BY date, hour_cst LIMIT ? OFFSET ?"
+    results = query_database(query, [start_date, end_date, limit, (page - 1) * limit])
 
-    if not start_date:
-        return jsonify({"error": "Missing start date parameter."}), 400
+    formatted_results = [dict(row) for row in results]
 
-    metric_columns = [
-        "avg_global_horizontal", "avg_direct_normal", "avg_diffuse_horizontal",
-        "avg_downwelling_ir", "avg_pyrgeometer_net", "avg_global_stdev",
-        "avg_direct_stdev", "avg_diffuse_stdev", "avg_ir_stdev", "avg_net_stdev"
-    ]
-    selected_columns = metric_columns if not selected_metric else [selected_metric]
+    return jsonify({
+        "data": formatted_results,
+        "page": page,
+        "limit": limit
+    })
 
-    query = f"SELECT date, hour_cst, {', '.join(selected_columns)} FROM WeatherSolarData"
-    filters = []
-    args = []
+@app.route('/api/download_file', methods=['GET'])
+def download_file():
+    start_date = request.args.get('start_date')
+    end_date = request.args.get('end_date')
+    file_format = request.args.get('format', 'csv')
 
-    if start_date and end_date:
-        filters.append("date BETWEEN ? AND ?")
-        args.extend([start_date, end_date])
+    query = "SELECT * FROM WeatherSolarData WHERE date BETWEEN ? AND ? ORDER BY date, hour_cst"
+    results = query_database(query, [start_date, end_date])
 
-    if hours:
-        try:
-            hour_list = [int(h) for h in hours.split(",") if h.strip()]
-            if hour_list:
-                filters.append(f"hour_cst IN ({','.join(['?' for _ in hour_list])})")
-                args.extend(hour_list)
-        except ValueError:
-            return jsonify({"error": "Invalid hour format."}), 400
+    formatted_data = [dict(row) for row in results]
 
-    if filters:
-        query += " WHERE " + " AND ".join(filters)
+    # Generate the requested file format
+    if file_format == "json":
+        return Response(json.dumps(formatted_data, indent=4), mimetype="application/json", headers={"Content-Disposition": "attachment; filename=Dataset.json"})
 
-    query += " ORDER BY date, hour_cst LIMIT ? OFFSET ?"
-    args.extend([limit, (page - 1) * limit])
+    elif file_format == "xlsx":
+        df = pd.DataFrame(formatted_data)
+        excel_file = "Dataset.xlsx"
+        df.to_excel(excel_file, index=False)
+        with open(excel_file, "rb") as file:
+            return Response(file.read(), mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", headers={"Content-Disposition": f"attachment; filename={excel_file}"})
 
-    print(f"Final Query: {query}, Arguments: {args}")
+    else:  # Default to CSV
+        def generate_csv():
+            yield "Date,Hour (CST),Global Horizontal (W/m²),Direct Normal (W/m²),Diffuse Horizontal (W/m²),Downwelling IR (W/m²),Pyrgeometer Net (W/m²),Global Stdev (W/m²),Direct Stdev (W/m²),Diffuse Stdev (W/m²),IR Stdev (W/m²),Net Stdev (W/m²)\n"
+            for row in results:
+                yield f"{row['date']},{row['hour_cst']},{row['avg_global_horizontal']},{row['avg_direct_normal']},{row['avg_diffuse_horizontal']},{row['avg_downwelling_ir']},{row['avg_pyrgeometer_net']},{row['avg_global_stdev']},{row['avg_direct_stdev']},{row['avg_diffuse_stdev']},{row['avg_ir_stdev']},{row['avg_net_stdev']}\n"
 
-    try:
-        results = query_database(query, args)
-        
-        # Format date to "Apr-08-25" style
-        formatted_results = [
-            {**dict(row), "date": datetime.strptime(row["date"], "%Y-%m-%d").strftime("%b-%d-%y")}
-            for row in results
-        ]
-
-        return jsonify({
-            "data": formatted_results,
-            "page": page,
-            "limit": limit
-        })
-
-    except sqlite3.OperationalError as e:
-        return jsonify({"error": str(e)}), 500
+        return Response(generate_csv(), mimetype="text/csv", headers={"Content-Disposition": "attachment; filename=Dataset.csv"})
 
 if __name__ == '__main__':
     app.run(debug=True)

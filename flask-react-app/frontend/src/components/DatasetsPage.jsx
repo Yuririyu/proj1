@@ -69,7 +69,7 @@ const DatasetsPage = () => {
           <div className="option-card">
             <h3>Hourly Data</h3>
             <p>Download aggregated hourly statistics in accessible formats.</p>
-            <button className="download-button">Select Data</button>
+            <button className="download-button" onClick={() => window.location.href="/download"}>Select Data</button>
           </div>
           <div className="option-card">
             <h3>Daily Statistics</h3>
