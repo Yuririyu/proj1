@@ -74,6 +74,36 @@ def get_data():
 
     return jsonify({"data": formatted_results})
 
+@app.route('/api/daily_average', methods=['GET'])
+def get_daily_average():
+    start_date = request.args.get('start_date', "2025-04-25")  # Default date if not provided
+    end_date = request.args.get('end_date', "2025-04-25")
+
+    query = """
+    SELECT 
+        date,
+        AVG(avg_global_horizontal) AS avg_global_horizontal,
+        AVG(avg_direct_normal) AS avg_direct_normal,
+        AVG(avg_diffuse_horizontal) AS avg_diffuse_horizontal,
+        AVG(avg_downwelling_ir) AS avg_downwelling_ir,
+        AVG(avg_pyrgeometer_net) AS avg_pyrgeometer_net,
+        AVG(avg_global_stdev) AS avg_global_stdev,
+        AVG(avg_direct_stdev) AS avg_direct_stdev,
+        AVG(avg_diffuse_stdev) AS avg_diffuse_stdev,
+        AVG(avg_ir_stdev) AS avg_ir_stdev,
+        AVG(avg_net_stdev) AS avg_net_stdev
+    FROM WeatherSolarData
+    WHERE date BETWEEN ? AND ?
+    GROUP BY date;
+    """
+
+    params = [start_date, end_date]
+    results = query_database(query, params)
+
+    formatted_results = [dict(row) for row in results] if results else []
+
+    return jsonify({"data": formatted_results})
+
 @app.route('/api/download_file', methods=['GET'])
 def download_file():
     start_date = request.args.get('start_date')
