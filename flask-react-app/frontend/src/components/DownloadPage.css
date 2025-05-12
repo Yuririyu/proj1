@@ -4,11 +4,11 @@
     color: #333;
     background-color: #f8f9fc;
     padding: 60px;
-    max-width: 1200px;
-    width: 100%;
+    width: 100vw; /* Forces full viewport width */
+    max-width: none; /* Removes any width restrictions */
     margin: 0 auto;
-  }
-  
+}
+
   /* Hero Section */
   .download-hero {
     text-align: center;
@@ -18,7 +18,10 @@
     border-radius: 10px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     margin-bottom: 50px;
-  }
+    width: 95vw; /* Expands width */
+    max-width: none;
+}
+
   
   .download-hero h1 {
     font-size: 4rem;
@@ -37,10 +40,9 @@
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     text-align: center;
     margin-bottom: 50px;
-    max-width: 90%;
-    padding: 30px;
-    margin: 0 auto;
-  }
+    width: 95vw; /* Expanded */
+    max-width: none;
+}
   
   /* File Format Dropdown */
   select {
@@ -52,8 +54,8 @@
     background-color: white;
     color: #333;
     cursor: pointer;
-  }
-  
+}
+
   select:hover,
   select:focus {
     border-color: #0a4b74;
@@ -70,8 +72,8 @@
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    margin-top: 25px;
-  }
+    width: 200px; /* Slightly larger */
+}
   
   .download-button:hover {
     background-color: #086296;
