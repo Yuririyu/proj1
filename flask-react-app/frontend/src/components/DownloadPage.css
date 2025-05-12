@@ -1,64 +1,55 @@
-/* General Page Styling */
+/* General Styling */
 .download-page {
     font-family: "Red Hat Display", sans-serif;
     color: #333;
     background-color: #f8f9fc;
-    padding: 50px 20px;
-    width: 90%;
+    padding: 60px;
     max-width: 1600px;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    margin: 0 auto;
   }
   
   /* Hero Section */
   .download-hero {
     text-align: center;
-    padding: 60px 30px;
+    padding: 100px 40px;
     background-color: white;
     color: #0a4b74;
     border-radius: 10px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    margin-bottom: 40px;
-    width: 100%;
-    max-width: 800px;
+    margin-bottom: 50px;
   }
   
-  /* Download Options */
+  .download-hero h1 {
+    font-size: 4rem;
+    font-weight: 700;
+  }
+  
+  .download-hero p {
+    font-size: 1.8rem;
+  }
+  
+  /* Download Options Section */
   .download-options {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
     background-color: white;
-    border-radius: 15px;
+    border-radius: 10px;
     padding: 40px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-  }
-  
-  .download-options h2 {
-    font-size: 1.8rem;
-    color: #0a4b74;
-  }
-  
-  .download-options h3 {
-    font-size: 1.3rem;
-    margin-top: 15px;
+    text-align: center;
+    margin-bottom: 50px;
+    max-width: 800px;
+    margin: 0 auto;
   }
   
   /* File Format Dropdown */
   select {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     border-radius: 10px;
     border: 1px solid #ccc;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     background-color: white;
     color: #333;
     cursor: pointer;
-    margin-top: 10px;
   }
   
   select:hover,
@@ -71,18 +62,134 @@
   .download-button {
     background-color: #0a4b74;
     color: white;
-    padding: 15px 25px;
-    border-radius: 30px;
+    padding: 16px 32px;
+    border-radius: 25px;
     font-size: 1.3rem;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    margin-top: 20px;
+    margin-top: 25px;
   }
   
   .download-button:hover {
     background-color: #086296;
     transform: translateY(-3px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Table Styling */
+  .styled-table {
+    width: 100%;
+    max-width: 1200px; /* Wider for better scaling */
+    border-collapse: collapse;
+    margin: 20px auto;
+    font-size: 1.2rem; /* Increased font size */
+    text-align: center;
+  }
+  
+  .styled-table th, .styled-table td {
+    padding: 12px; /* Better spacing */
+    border: 1px solid #ccc;
+  }
+  
+  .styled-table th {
+    background-color: #0a4b74;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .styled-table tr:nth-child(even) {
+    background-color: #f8f9fc;
+  }
+  
+  /* Button Styling */
+  .table-button {
+    padding: 14px 20px; /* Larger buttons */
+    font-size: 1.1rem;
+    background-color: #cb4900;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .table-button:hover {
+    background-color: #e06a3f;
+    transform: translateY(-2px);
+  }
+  
+  /* Date Range Selector */
+  .date-range-container {
+    width: 100%;
+    max-width: 800px; /* Wider layout */
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .date-range-container label {
+    font-size: 1.3rem; /* Increased font size */
+    color: #0a4b74;
+    font-weight: bold;
+  }
+  
+  .date-range-input {
+    width: 100%;
+    padding: 14px; /* More space for easier clicking */
+    font-size: 1.3rem; /* Bigger text */
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    text-align: center;
+  }
+  
+  .date-range-input:hover,
+  .date-range-input:focus {
+    border-color: #0a4b74;
+    box-shadow: 0 4px 8px rgba(10, 75, 116, 0.2);
+  }
+  
+  /* Footer Section */
+  .download-footer {
+    text-align: center;
+    padding: 40px;
+    background-color: #333;
+    color: white;
+    font-size: 1.5rem;
+  }
+  /* Date Range Table Styling */
+.date-range-container {
+    width: 100%;
+    max-width: 1000px; /* Larger table */
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .date-range-container label {
+    font-size: 1.3rem; /* Increased font size */
+    color: #0a4b74;
+    font-weight: bold;
+  }
+  
+  .date-range-input {
+    width: 100%;
+    padding: 14px; /* More space */
+    font-size: 1.3rem; /* Bigger text */
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    text-align: center;
+  }
+  
+  .date-range-input:hover,
+  .date-range-input:focus {
+    border-color: #0a4b74;
+    box-shadow: 0 4px 8px rgba(10, 75, 116, 0.2);
   }
   

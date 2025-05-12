@@ -48,7 +48,7 @@ const DatasetsPage = () => {
 
     try {
       const response = await axios.get("http://127.0.0.1:5000/api/data", { params });
-      setResults(response.data.data); // Ensure results update with pagination
+      setResults(response.data.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -130,19 +130,28 @@ const DatasetsPage = () => {
       {/* Results Section */}
       <section className="data-selection">
         <h2>📋 Results</h2>
+
+        {/* Pagination at the Top */}
+        <div className="pagination">
+          <button disabled={page === 1} onClick={() => fetchData(page - 1)}>⬅ Previous</button>
+          {results.length === limit && (
+            <button onClick={() => fetchData(page + 1)}>Next ➡</button>
+          )}
+        </div>
+
         {results.length > 0 ? (
           <>
             <div className="overflow-x-auto">
               <table className="min-w-full text-sm">
                 <thead>
                   <tr>
-                    <th className="border px-2 py-1">Date</th>
-                    <th className="border px-2 py-1">Hour (CST)</th>
+                    <th className="border px-4 py-2 whitespace-nowrap">Date</th>
+                    <th className="border px-4 py-2">Hour (CST)</th>
                     {selectedMetric ? (
-                      <th className="border px-2 py-1">{metricNames[selectedMetric]}</th>
+                      <th className="border px-4 py-2">{metricNames[selectedMetric]}</th>
                     ) : (
                       Object.keys(metricNames).map((metric, i) => (
-                        <th key={i} className="border px-2 py-1">{metricNames[metric]}</th>
+                        <th key={i} className="border px-4 py-2">{metricNames[metric]}</th>
                       ))
                     )}
                   </tr>
@@ -150,13 +159,13 @@ const DatasetsPage = () => {
                 <tbody>
                   {results.map((row, index) => (
                     <tr key={index}>
-                      <td className="border px-2 py-1">{row.date}</td>
-                      <td className="border px-2 py-1">{row.hour_cst}</td>
+                      <td className="border px-4 py-2 whitespace-nowrap">{row.date}</td>
+                      <td className="border px-4 py-2">{row.hour_cst}</td>
                       {selectedMetric ? (
-                        <td className="border px-2 py-1">{row[selectedMetric]}</td>
+                        <td className="border px-4 py-2">{row[selectedMetric]}</td>
                       ) : (
                         Object.keys(metricNames).map((metric, i) => (
-                          <td key={i} className="border px-2 py-1">{row[metric]}</td>
+                          <td key={i} className="border px-4 py-2">{row[metric]}</td>
                         ))
                       )}
                     </tr>
@@ -165,7 +174,7 @@ const DatasetsPage = () => {
               </table>
             </div>
 
-            {/* Pagination */}
+            {/* Pagination at the Bottom */}
             <div className="pagination">
               <button disabled={page === 1} onClick={() => fetchData(page - 1)}>⬅ Previous</button>
               {results.length === limit && (
