@@ -66,18 +66,18 @@
   .download-button {
     background-color: #0a4b74;
     color: white;
-    padding: 16px 32px;
-    border-radius: 25px;
-    font-size: 1.3rem;
+    padding: 10px 20px; /* Reduced padding */
+    border-radius: 18px; /* Slightly smaller rounded corners */
+    font-size: 1rem; /* Reduced font size */
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    width: 200px; /* Slightly larger */
+    margin-top: 40px; /* Increased margin to lower the button */
 }
   
   .download-button:hover {
     background-color: #086296;
-    transform: translateY(-3px);
+    transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   }
   
