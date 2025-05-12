@@ -1,77 +1,76 @@
 /* General Styling */
 .predictions-page {
-    font-family: "Red Hat Display", sans-serif;
-    color: #333;
-    background-color: #f8f9fc; /* Light grey background */
-    padding: 60px;
-    max-width: 1600px;
-    margin: 0 auto; /* Center content */
-  }
-  
-  /* Hero Section */
-  .predictions-hero {
-    text-align: center;
-    padding: 100px 40px;
-    background-color: white;
-    color: #0a4b74; /* Deep blue */
-    border-radius: 10px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    margin-bottom: 50px;
-  }
-  
-  .predictions-hero h1 {
-    font-size: 4rem; /* Large text for hero header */
-    font-weight: 700;
-  }
-  
-  .predictions-hero p {
-    font-size: 1.8rem; /* Increased paragraph size */
-  }
-  
-  /* Predictions Section */
-  .predictions {
-    margin-bottom: 50px;
-    padding: 40px;
-  }
-  
-  .predictions h2 {
-    text-align: center;
-    font-size: 2.5rem;
-    color: #0a4b74;
-  }
-  
-  .predictions-container {
-    display: flex;
-    justify-content: center;
-    gap: 40px; /* Spacing between cards */
-    flex-wrap: wrap; /* Responsive wrapping */
-  }
-  
-  .prediction-card {
-    background-color: white;
-    border-radius: 10px;
-    padding: 30px;
-    text-align: center;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    max-width: 350px;
-  }
-  
-  .prediction-card h3 {
-    font-size: 1.8rem;
-    color: #cb4900;
-    margin-bottom: 15px;
-  }
-  
-  .prediction-card p {
-    font-size: 1.2rem;
-  }
-  
-  /* Footer Section */
-  .predictions-footer {
-    text-align: center;
-    padding: 40px;
-    background-color: #333;
-    color: white;
-    font-size: 1.5rem;
-  }
-  
+  font-family: "Red Hat Display", sans-serif;
+  color: #333;
+  background-color: #f8f9fc; /* Light grey background */
+  padding: 60px;
+  max-width: 1600px;
+  margin: 0 auto; /* Center content */
+}
+
+/* Hero Section */
+.predictions-hero {
+  text-align: center;
+  padding: 100px 40px;
+  background-color: white;
+  color: #0a4b74; /* Deep blue */
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  margin-bottom: 50px;
+}
+
+.predictions-hero h1 {
+  font-size: 4rem; /* Large text for hero header */
+  font-weight: 700;
+}
+
+.predictions-hero p {
+  font-size: 1.8rem; /* Increased paragraph size */
+}
+
+/* Predictions Section */
+.predictions {
+  margin-bottom: 50px;
+  padding: 40px;
+}
+
+.predictions h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #0a4b74;
+}
+
+.predictions-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px; /* Spacing between cards */
+  flex-wrap: wrap; /* Responsive wrapping */
+}
+
+.prediction-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  max-width: 350px;
+}
+
+.prediction-card h3 {
+  font-size: 1.8rem;
+  color: #cb4900;
+  margin-bottom: 15px;
+}
+
+.prediction-card p {
+  font-size: 1.2rem;
+}
+
+/* Footer Section */
+.predictions-footer {
+  text-align: center;
+  padding: 40px;
+  background-color: #333;
+  color: white;
+  font-size: 1.5rem;
+}

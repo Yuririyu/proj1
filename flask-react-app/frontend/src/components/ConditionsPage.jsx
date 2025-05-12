@@ -3,54 +3,96 @@ import axios from "axios";
 import "./ConditionsPage.css";
 
 const ConditionsPage = () => {
-  const [latestData, setLatestData] = useState(null);
+  const [dailyAverage, setDailyAverage] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchLatestData = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:5000/api/latest-data");
-        setLatestData(response.data);
-      } catch (error) {
-        console.error("Error fetching latest data:", error);
+        const response = await axios.get("http://127.0.0.1:5000/api/daily_average");
+        setDailyAverage(response.data.data[0]); // Ensure first object is selected
+      } catch (err) {
+        console.error("Error fetching daily average:", err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
       }
     };
-
-    fetchLatestData();
+    fetchData();
   }, []);
 
   return (
     <div className="conditions-page">
       {/* Hero Section */}
       <section className="conditions-hero">
-        <h1>Current Weather and Solar Data</h1>
-        <p>Comprehensive updates on atmospheric conditions and solar radiation patterns.</p>
+        <h1>Daily Solar Conditions for April 25, 2025</h1>
+        <p>Average solar radiation and atmospheric metrics for this specific day.</p>
       </section>
 
-      {/* Real-Time Weather Stats */}
+      {/* Data Summary */}
       <section className="conditions-stats">
-        <h2>🌦️ Real-Time Data Summary</h2>
-        {latestData ? (
-          <div className="stats-container">
-            <div className="stat-card">
-              <h3>🌡️ Temperature</h3>
-              <p><strong>Global Horizontal:</strong> {latestData.avg_global_horizontal} W/m²</p>
-              <p><strong>Direct Normal:</strong> {latestData.avg_direct_normal} W/m²</p>
-              <p><strong>Diffuse Horizontal:</strong> {latestData.avg_diffuse_horizontal} W/m²</p>
+        <h2>🌤 Daily Averages</h2>
+        <div className="dashboard-container">
+          {loading ? (
+            <p>Loading daily average data...</p>
+          ) : error ? (
+            <p>Error fetching data: {error}</p>
+          ) : dailyAverage ? (
+            <>
+              <div className="data-card">
+                <h3>🌞 Global Horizontal</h3>
+                <p><span>{dailyAverage.avg_global_horizontal.toFixed(2)} W/m²</span></p>
+              </div>
+              <div className="data-card">
+                <h3>☀ Direct Normal</h3>
+                <p><span>{dailyAverage.avg_direct_normal.toFixed(2)} W/m²</span></p>
+              </div>
+              <div className="data-card">
+                <h3>🌤 Diffuse Horizontal</h3>
+                <p><span>{dailyAverage.avg_diffuse_horizontal.toFixed(2)} W/m²</span></p>
+              </div>
+              <div className="data-card">
+                <h3>🔥 Downwelling IR</h3>
+                <p><span>{dailyAverage.avg_downwelling_ir.toFixed(2)} W/m²</span></p>
+              </div>
+              <div className="data-card">
+                <h3>⚡ Pyrgeometer Net</h3>
+                <p><span>{dailyAverage.avg_pyrgeometer_net.toFixed(2)} W/m²</span></p>
+              </div>
+              <div className="data-card">
+                <h3>📈 Global Stdev</h3>
+                <p><span>{dailyAverage.avg_global_stdev.toFixed(2)} W/m²</span></p>
+              </div>
+              <div className="data-card">
+                <h3>📊 Direct Stdev</h3>
+                <p><span>{dailyAverage.avg_direct_stdev.toFixed(2)} W/m²</span></p>
+              </div>
+              <div className="data-card">
+                <h3>🌥 Diffuse Stdev</h3>
+                <p><span>{dailyAverage.avg_diffuse_stdev.toFixed(2)} W/m²</span></p>
+              </div>
+              <div className="data-card">
+                <h3>🔎 IR Stdev</h3>
+                <p><span>{dailyAverage.avg_ir_stdev.toFixed(2)} W/m²</span></p>
+              </div>
+              <div className="data-card">
+                <h3>⚖ Net Stdev</h3>
+                <p><span>{dailyAverage.avg_net_stdev.toFixed(2)} W/m²</span></p>
+              </div>
+            </>
+          ) : (
+            <div className="data-card no-data">
+              <h3>No Valid Data Available</h3>
+              <p>Some data may be missing or invalid for April 25, 2025.</p>
             </div>
-            <div className="stat-card">
-              <h3>🔆 Solar Radiation</h3>
-              <p><strong>Downwelling IR:</strong> {latestData.avg_downwelling_ir} W/m²</p>
-              <p><strong>Pyrgeometer Net:</strong> {latestData.avg_pyrgeometer_net} W/m²</p>
-            </div>
-          </div>
-        ) : (
-          <p>Loading latest data...</p>
-        )}
+          )}
+        </div>
       </section>
 
       {/* Footer Section */}
       <footer className="conditions-footer">
-        <p>Empowering research with precise meteorological and solar radiation data.</p>
+        <p>Providing average solar radiation insights for informed decisions.</p>
       </footer>
     </div>
   );

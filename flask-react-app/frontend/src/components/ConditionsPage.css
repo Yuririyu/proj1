@@ -4,7 +4,7 @@
   color: #333;
   background-color: #f8f9fc;
   padding: 60px;
-  max-width: 1600px;
+  max-width: 1600px; /* Restores full-width format */
   margin: 0 auto;
 }
 
@@ -41,99 +41,69 @@
   margin-bottom: 30px;
 }
 
+/* Dashboard & Data Cards Layout */
+.dashboard-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px; /* Increased spacing */
+  justify-content: center;
+  max-width: 1400px; /* Expanded layout */
+  margin: auto;
+}
+
+/* Real-Time Stats Layout */
 .stats-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between; /* Ensures balanced layout */
   gap: 40px;
   flex-wrap: wrap;
 }
 
-.stat-card {
-  background-color: white;
+/* Individual Data Cards */
+.data-card {
+  background: white;
+  padding: 30px; /* Increased padding */
+  width: 320px; /* Enlarged cards */
   border-radius: 10px;
-  padding: 30px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   text-align: center;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  flex: 1;
-  max-width: 300px;
+  transition: transform 0.3s ease;
 }
 
-.stat-card h3 {
-  font-size: 1.8rem;
-  color: #cb4900;
-  margin-bottom: 15px;
+.data-card:hover {
+  transform: translateY(-5px);
 }
 
-.stat-card p {
-  font-size: 1.2rem;
-}
-
-/* Solar Radiation Section */
-.solar-section {
-  margin-bottom: 50px;
-  padding: 40px;
-}
-
-.solar-section h2 {
-  text-align: center;
-  font-size: 2.5rem;
+.data-card h3 {
+  font-size: 1.6rem;
   color: #0a4b74;
-  margin-bottom: 30px;
+  margin-bottom: 12px;
 }
 
-.solar-container {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  flex-wrap: wrap;
+.data-card p {
+  font-size: 1.3rem; /* Improves readability */
+  color: #333;
 }
 
-.solar-card {
-  background-color: white;
-  border-radius: 10px;
-  padding: 30px;
-  text-align: center;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  flex: 1;
-  max-width: 300px;
-}
-
-.solar-card h3 {
-  font-size: 1.8rem;
+.data-card span {
+  font-weight: bold;
+  font-size: 1.4rem;
   color: #cb4900;
-  margin-bottom: 15px;
 }
 
-.solar-card p {
-  font-size: 1.2rem;
-}
-
-/* Visual Section */
-.visual-section {
-  text-align: center;
-  margin-bottom: 50px;
-}
-
-.visual-container {
-  display: flex;
-  justify-content: center;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  padding: 30px;
-}
-
-.visual-container img {
-  width: 100%;
-  max-width: 1200px;
-  border-radius: 10px;
+/* No Data Fallback */
+.no-data {
+  background-color: #f8e4e4;
+  border: 2px dashed #cb4900;
+  color: #cb4900;
+  padding: 20px;
 }
 
 /* Footer Section */
 .conditions-footer {
   text-align: center;
-  padding: 40px;
+  padding: 50px;
   background-color: #333;
   color: white;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
 }

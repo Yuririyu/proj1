@@ -44,7 +44,7 @@ def get_data():
     page = int(request.args.get('page', 1))
     limit = int(request.args.get('limit', 50))
 
-    query = "SELECT * FROM WeatherSolarData WHERE date BETWEEN ? AND ?"
+    query = "SELECT date, hour_cst FROM WeatherSolarData WHERE date BETWEEN ? AND ?"
     params = [start_date, end_date]
 
     if selected_hours:
@@ -52,9 +52,24 @@ def get_data():
         query += " AND hour_cst IN ({})".format(",".join(["?" for _ in hours_list]))
         params.extend(hours_list)
 
+    # Define metric columns before using them
+    metric_columns = [
+        "avg_global_horizontal", "avg_direct_normal", "avg_diffuse_horizontal",
+        "avg_downwelling_ir", "avg_pyrgeometer_net", "avg_global_stdev",
+        "avg_direct_stdev", "avg_diffuse_stdev", "avg_ir_stdev", "avg_net_stdev"
+    ]
+
+    if selected_metric and selected_metric in metric_columns:
+        query = query.replace("date, hour_cst", f"date, hour_cst, {selected_metric}")
+    else:
+        query = query.replace("date, hour_cst", f"date, hour_cst, {', '.join(metric_columns)}")
+
+    # Implement pagination
+    query += " ORDER BY date, hour_cst LIMIT ? OFFSET ?"
+    params.extend([limit, (page - 1) * limit])
+
     results = query_database(query, params)
 
-    # If no results, return dummy data instead of an empty response
     formatted_results = [dict(row) for row in results] if results else [DUMMY_DATA]
 
     return jsonify({"data": formatted_results})
@@ -67,6 +82,13 @@ def download_file():
     selected_hours = request.args.get('hours', None)
     selected_metric = request.args.get('metric', None)
 
+    # Define metric columns before using them
+    metric_columns = [
+        "avg_global_horizontal", "avg_direct_normal", "avg_diffuse_horizontal",
+        "avg_downwelling_ir", "avg_pyrgeometer_net", "avg_global_stdev",
+        "avg_direct_stdev", "avg_diffuse_stdev", "avg_ir_stdev", "avg_net_stdev"
+    ]
+    
     query = "SELECT date, hour_cst FROM WeatherSolarData WHERE date BETWEEN ? AND ?"
     params = [start_date, end_date]
 
@@ -75,12 +97,6 @@ def download_file():
         query += " AND hour_cst IN ({})".format(",".join(["?" for _ in hours_list]))
         params.extend(hours_list)
 
-    metric_columns = [
-        "avg_global_horizontal", "avg_direct_normal", "avg_diffuse_horizontal",
-        "avg_downwelling_ir", "avg_pyrgeometer_net", "avg_global_stdev",
-        "avg_direct_stdev", "avg_diffuse_stdev", "avg_ir_stdev", "avg_net_stdev"
-    ]
-    
     if selected_metric and selected_metric in metric_columns:
         query = query.replace("date, hour_cst", f"date, hour_cst, {selected_metric}")
     else:
@@ -88,10 +104,9 @@ def download_file():
 
     results = query_database(query, params)
 
-    # If no results, return dummy data
     formatted_data = [dict(row) for row in results] if results else [DUMMY_DATA]
 
-    # Generate the requested file format
+    # File export logic
     if file_format == "json":
         return Response(json.dumps(formatted_data, indent=4), mimetype="application/json",
                         headers={"Content-Disposition": "attachment; filename=Dataset.json"})

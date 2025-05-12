@@ -74,7 +74,7 @@ const DatasetsPage = () => {
           <div className="option-card">
             <h3>Daily Statistics</h3>
             <p>Access summarized daily trends for comprehensive analysis.</p>
-            <button className="download-button">Download</button>
+            <button className="download-button" onClick={() => navigate("/solar-graph")}>Explore Data</button>
           </div>
           <div className="option-card">
             <h3>Live Data</h3>

@@ -3,9 +3,10 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainPage from "./components/MainPage";
 import DatasetsPage from "./components/DatasetsPage";
 import ConditionsPage from "./components/ConditionsPage";
-import PredictionsPage from "./components/PredictionsPage"; // Keep Predictions if required
+import PredictionsPage from "./components/PredictionsPage"; 
 import TopHeader from "./components/TopHeader";
-import DownloadPage from "./components/DownloadPage"; // Import Download Page
+import DownloadPage from "./components/DownloadPage"; 
+import SolarGraph from "./components/SolarGraph";
 
 const App = () => {
   return (
@@ -13,12 +14,13 @@ const App = () => {
       <div>
         <TopHeader />
         <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/datasets" element={<DatasetsPage />} />
-          <Route path="/view-conditions" element={<ConditionsPage />} />
-          <Route path="/weather-predictions" element={<PredictionsPage />} />
-          <Route path="/download" element={<DownloadPage />} /> {/* Added Download Page */}
-        </Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/datasets" element={<DatasetsPage />} />
+        <Route path="/view-conditions" element={<ConditionsPage />} />
+        <Route path="/weather-predictions" element={<PredictionsPage />} />
+        <Route path="/download" element={<DownloadPage />} /> 
+        <Route path="/solar-graph" element={<SolarGraph />} /> {/* ✅ Added Solar Graph Route */}
+      </Routes>
       </div>
     </Router>
   );
