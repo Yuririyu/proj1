@@ -5,6 +5,8 @@ import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import "./DatasetsPage.css";
 
+
+
 const metricNames = {
   avg_global_horizontal: "Global Horizontal (W/m²)",
   avg_direct_normal: "Direct Normal (W/m²)",
@@ -74,7 +76,7 @@ const DatasetsPage = () => {
           <div className="option-card">
             <h3>Daily Statistics</h3>
             <p>Access summarized daily trends for comprehensive analysis.</p>
-            <button className="download-button" onClick={() => navigate("/solar-graph")}>Explore Data</button>
+            <button className="download-button" onClick={() => window.location.href="/solar-graph"}>Explore Data</button>
           </div>
           <div className="option-card">
             <h3>Live Data</h3>
